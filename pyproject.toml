@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "est-vault"
+version = "1.0.0"
+description = "Launch a subprocess with environment variables from an encrypted file"
+requires-python = ">=3.9"
+dependencies = [
+    "click>=8.0",
+    "cryptography>=41.0",
+]
+
+[project.scripts]
+est-vault = "est_vault.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
