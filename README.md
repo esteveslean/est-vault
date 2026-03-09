@@ -157,21 +157,6 @@ est-vault prod.env docker-compose -- up -d
 
 ---
 
-## File format
-
-Vault files use the same format as the original Go `env-vault` — they are fully compatible:
-
-```
-env-vault;1.0;AES256
-<base64-encoded ciphertext>
-```
-
-Encryption details:
-- **Algorithm:** AES-256-GCM (authenticated encryption)
-- **Key derivation:** SHA-256 hash of the password → 32-byte key
-- **Nonce:** 12 random bytes, prepended to the ciphertext before base64 encoding
-
----
 
 ## Development
 

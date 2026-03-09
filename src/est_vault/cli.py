@@ -1,5 +1,5 @@
 """
-est-vault CLI — Python port of env-vault (github.com/romantomjak/env-vault).
+est-vault CLI.
 
 Commands:
   est-vault <vault> <program> [-- args]   Run program with decrypted env vars

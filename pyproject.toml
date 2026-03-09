@@ -5,18 +5,37 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "est-vault"
 version = "1.0.0"
-description = "Launch a subprocess with environment variables from an encrypted file"
+authors = [
+  { name="Leandro Esteves", email="leanesteves@gmail.com" },
+]
+description = "est-vault is a command-line tool for managing application secrets securely"
 requires-python = ">=3.9"
+readme = "README.md"
 dependencies = [
     "click>=8.0",
     "cryptography>=41.0",
 ]
 
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov>=4.0"]
+
 [project.scripts]
 est-vault = "est_vault.cli:main"
 
-[project.optional-dependencies]
-dev = ["pytest>=8.0"]
-
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.black]
+line-length = 127
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 127
+skip_gitignore = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
