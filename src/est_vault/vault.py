@@ -1,11 +1,6 @@
 """
 Core vault encryption/decryption logic.
 
-File format (compatible with the original Go env-vault):
-  Line 1: env-vault;1.0;AES256
-  Rest:    base64-encoded ciphertext
-           ciphertext = nonce (12 bytes) + AES-256-GCM encrypted data
-
 Key derivation: SHA-256 hash of the password (same as Go implementation).
 """
 

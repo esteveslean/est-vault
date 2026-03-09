@@ -7,7 +7,6 @@ import pytest
 
 from est_vault import vault as v
 
-
 PASSWORD = b"correct-horse-battery-staple"
 PLAINTEXT = b"DB_HOST=localhost\nDB_PORT=5432\nDB_PASSWORD=super_secret\n"
 
@@ -15,6 +14,7 @@ PLAINTEXT = b"DB_HOST=localhost\nDB_PORT=5432\nDB_PASSWORD=super_secret\n"
 # ---------------------------------------------------------------------------
 # encrypt / decrypt (low-level)
 # ---------------------------------------------------------------------------
+
 
 class TestEncryptDecrypt:
     def test_roundtrip(self):
@@ -55,6 +55,7 @@ class TestEncryptDecrypt:
 # write_file / read_file
 # ---------------------------------------------------------------------------
 
+
 class TestFileIO:
     def test_roundtrip(self, tmp_path):
         path = str(tmp_path / "secrets.env")
@@ -91,6 +92,7 @@ class TestFileIO:
 # Header validation
 # ---------------------------------------------------------------------------
 
+
 class TestHeaderValidation:
     def _write_raw(self, path: str, header: bytes, body: bytes = b"dummy") -> None:
         with open(path, "wb") as f:
@@ -125,6 +127,7 @@ class TestHeaderValidation:
 # ---------------------------------------------------------------------------
 # Key derivation
 # ---------------------------------------------------------------------------
+
 
 class TestCipherKey:
     def test_key_is_32_bytes(self):

@@ -40,6 +40,7 @@ def plain_file(tmp_path):
 # version
 # ---------------------------------------------------------------------------
 
+
 class TestVersion:
     def test_prints_version(self, runner):
         result = runner.invoke(main, ["version"])
@@ -50,6 +51,7 @@ class TestVersion:
 # ---------------------------------------------------------------------------
 # encrypt
 # ---------------------------------------------------------------------------
+
 
 class TestEncrypt:
     def test_encrypts_plaintext_file(self, runner, plain_file):
@@ -79,6 +81,7 @@ class TestEncrypt:
 # decrypt
 # ---------------------------------------------------------------------------
 
+
 class TestDecrypt:
     def test_decrypts_to_plaintext(self, runner, vault_file):
         result = runner.invoke(main, ["decrypt", vault_file], env={"ENV_VAULT_PASSWORD": PASSWORD})
@@ -101,11 +104,13 @@ class TestDecrypt:
 # rekey
 # ---------------------------------------------------------------------------
 
+
 class TestRekey:
     def test_changes_password(self, runner, vault_file):
         new_pw = "newpassword"
         result = runner.invoke(
-            main, ["rekey", vault_file],
+            main,
+            ["rekey", vault_file],
             input=f"{PASSWORD}\n{new_pw}\n{new_pw}\n",
         )
         assert result.exit_code == 0
@@ -134,9 +139,11 @@ class TestRekey:
 # create
 # ---------------------------------------------------------------------------
 
+
 class TestCreate:
     def test_creates_encrypted_file(self, runner, tmp_path, monkeypatch):
         output_path = str(tmp_path / "new.env")
+
         # Mock the editor to write known content to the temp file
         def fake_editor(filename):
             with open(filename, "wb") as f:
@@ -172,6 +179,7 @@ class TestCreate:
 # ---------------------------------------------------------------------------
 # view
 # ---------------------------------------------------------------------------
+
 
 class TestView:
     def test_opens_decrypted_content_in_editor(self, runner, vault_file, monkeypatch):
@@ -210,6 +218,7 @@ class TestView:
 # edit
 # ---------------------------------------------------------------------------
 
+
 class TestEdit:
     def test_saves_modified_content(self, runner, vault_file, monkeypatch):
         new_content = b"API_KEY=new_value\n"
@@ -243,6 +252,7 @@ class TestEdit:
 # ENV_VAULT_PASSWORD env var
 # ---------------------------------------------------------------------------
 
+
 class TestEnvVaultPassword:
     def test_password_read_from_env_var(self, runner, vault_file, monkeypatch):
         monkeypatch.setattr("est_vault.cli._open_in_editor", lambda f: None)
@@ -252,7 +262,8 @@ class TestEnvVaultPassword:
     def test_env_var_not_used_for_new_passwords(self, runner, plain_file):
         # encrypt always prompts, even if ENV_VAULT_PASSWORD is set
         result = runner.invoke(
-            main, ["encrypt", plain_file],
+            main,
+            ["encrypt", plain_file],
             env={"ENV_VAULT_PASSWORD": PASSWORD},
             input=f"{PASSWORD}\n{PASSWORD}\n",
         )
